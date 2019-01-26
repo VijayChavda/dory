@@ -11,7 +11,7 @@ public class ItemView extends JLabel {
 
 	private Item context;
 
-	private ItemView(Item context) {
+	public ItemView(Item context) {
 		this.context = context;
 
 		initView();
@@ -24,10 +24,10 @@ public class ItemView extends JLabel {
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 
-		update();
+		reContext();
 	}
 
-	public void update() {
+	public void reContext() {
 		setText(context.getText());
 		setIcon(context.getIcon());
 	}
@@ -38,7 +38,7 @@ public class ItemView extends JLabel {
 
 	public void setContext(Item context) {
 		this.context = context;
-		update();
+		reContext();
 	}
 
 }
