@@ -6,19 +6,11 @@ package me.vijaychavda.dory.utils;
  */
 public class Settings {
 
-	private static Settings instance;
+	private String appDirPath;
 
-	public static Settings getInstance() {
-		if (instance == null)
-			instance = new Settings();
-		return instance;
-	}
-
-	private Settings() {
+	public Settings() {
 		appDirPath = System.getProperty("user.home");
 	}
-
-	private String appDirPath;
 
 	public String getAppDirPath() {
 		return appDirPath;
