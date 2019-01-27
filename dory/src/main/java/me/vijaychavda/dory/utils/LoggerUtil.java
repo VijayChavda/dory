@@ -3,13 +3,16 @@ package me.vijaychavda.dory.utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import static me.vijaychavda.dory.Dory.LOGGER;
 import static me.vijaychavda.dory.Dory.STORAGE;
 
 /**
@@ -34,20 +37,22 @@ public class LoggerUtil {
 			STORAGE.getLogsDir().getAbsolutePath(),
 			DATE_FORMAT.format(new Date())
 		);
-		System.out.println(pattern);
 		FileHandler handler
 			= new FileHandler(pattern, MAX_LOG_SIZE, MAX_LOG_COUNT, true);
 		handler.setFormatter(new SimpleFormatter());
 		logger.addHandler(handler);
 	}
 
-	public static boolean logUDFA(String path, String name) {
+	public static boolean logUDFA(Path path, String name) {
 		File udfaLogFile = STORAGE.getUdfaLogFile();
 
-		String entry = MessageFormat.format("{0}\t[{1}::{2}]", new Date(), name, path);
+		String entry = MessageFormat.format(
+			"{0}\t[{1}::{2}]", new Date(), name, path.toString()
+		);
 		try (FileWriter writer = new FileWriter(udfaLogFile, true)) {
 			writer.append(entry + "\n");
 		} catch (IOException ex) {
+			LOGGER.log(Level.SEVERE, "Failed to log UDFA: " + entry, ex);
 			return false;
 		}
 		return true;
