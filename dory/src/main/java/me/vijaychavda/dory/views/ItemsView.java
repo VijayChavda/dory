@@ -48,7 +48,7 @@ public class ItemsView extends JPanel {
 			ItemView itemView = new ItemView(item);
 
 			itemViews.put(item, itemView);
-			add(itemView, index);
+			add(itemView, "", index);
 		}
 
 		for (Integer index : context.getRemovedItems()) {

@@ -1,10 +1,12 @@
 package me.vijaychavda.dory;
 
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.logging.Logger;
 import me.vijaychavda.dory.utils.LoggerUtil;
 import me.vijaychavda.dory.utils.Settings;
 import me.vijaychavda.dory.utils.Storage;
+import me.vijaychavda.dory.views.Explorer;
 
 /**
  *
@@ -35,7 +37,9 @@ public class Dory {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Hello, World!");
+		EventQueue.invokeLater(() -> {
+			new Explorer().setVisible(true);
+		});
 	}
 
 }

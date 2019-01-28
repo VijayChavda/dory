@@ -18,11 +18,13 @@ public abstract class Crawler {
 	private final Path start;
 	private final String syntax;
 	private final String pattern;
+	private final int depth;
 
-	public Crawler(Path start, String syntax, String pattern) {
+	public Crawler(Path start, String syntax, String pattern, int depth) {
 		this.start = start;
 		this.syntax = syntax;
 		this.pattern = pattern;
+		this.depth = depth;
 	}
 
 	public void crawl() throws IOException {
@@ -30,7 +32,7 @@ public abstract class Crawler {
 			@Override
 			protected Void doInBackground() throws Exception {
 				PathMatcher matcher = FileSystems.getDefault().getPathMatcher(syntax + ":" + pattern);
-				try (Stream<Path> stream = Files.walk(start)) {
+				try (Stream<Path> stream = Files.walk(start, depth)) {
 					stream.forEach((Path path) -> {
 						Path name = path.getFileName();
 						if (name != null && matcher.matches(name)) {

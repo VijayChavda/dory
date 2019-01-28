@@ -1,5 +1,6 @@
 package me.vijaychavda.dory.models;
 
+import java.text.MessageFormat;
 import javax.swing.Icon;
 
 /**
@@ -25,6 +26,11 @@ public class Item {
 
 	public void setIcon(Icon icon) {
 		this.icon = icon;
+	}
+
+	@Override
+	public String toString() {
+		return MessageFormat.format("Item[text={0}, icon={1}]", text, icon);
 	}
 
 }
