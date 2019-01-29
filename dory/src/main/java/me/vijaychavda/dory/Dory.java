@@ -3,9 +3,10 @@ package me.vijaychavda.dory;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.logging.Logger;
+import me.vijaychavda.dory.services.Assets;
+import me.vijaychavda.dory.services.Settings;
+import me.vijaychavda.dory.services.Storage;
 import me.vijaychavda.dory.utils.LoggerUtil;
-import me.vijaychavda.dory.utils.Settings;
-import me.vijaychavda.dory.utils.Storage;
 import me.vijaychavda.dory.views.Explorer;
 
 /**
@@ -16,10 +17,17 @@ public class Dory {
 
 	public static final String DORY = "dory";
 	public static final Logger LOGGER;
+	public static final Assets ASSETS;
 	public static final Settings SETTINGS;
 	public static final Storage STORAGE;
 
 	static {
+		try {
+			ASSETS = new Assets();
+		} catch (IOException ex) {
+			throw new Error("Failed to load default Assets", ex);
+		}
+
 		SETTINGS = new Settings();
 
 		try {

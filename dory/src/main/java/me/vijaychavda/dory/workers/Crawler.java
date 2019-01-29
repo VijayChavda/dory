@@ -1,4 +1,4 @@
-package me.vijaychavda.dory.utils;
+package me.vijaychavda.dory.workers;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;

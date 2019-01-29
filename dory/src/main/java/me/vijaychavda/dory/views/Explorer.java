@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import static me.vijaychavda.dory.Dory.LOGGER;
 import me.vijaychavda.dory.models.FileItem;
 import me.vijaychavda.dory.models.Items;
-import me.vijaychavda.dory.utils.Crawler;
+import me.vijaychavda.dory.workers.Crawler;
 
 /**
  *
@@ -44,7 +44,6 @@ public class Explorer extends javax.swing.JFrame {
 			@Override
 			public void found(Path path) {
 				FileItem item = new FileItem(path);
-				item.setText(path.getFileName().toString());
 				itemsView.getContext().add(index++, item);
 				itemsView.reload();
 			}
