@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 import me.vijaychavda.dory.models.Item;
 import me.vijaychavda.dory.models.Items;
+import me.vijaychavda.dory.models.Items.ItemsListener;
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
@@ -15,7 +16,7 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Vijay
  */
-public class ItemsView extends JPanel {
+public class ItemsView extends JPanel implements ItemsListener {
 
 	private Items context;
 	private final HashMap<Item, ItemView> itemViews;
@@ -28,47 +29,17 @@ public class ItemsView extends JPanel {
 		this.context = context;
 		itemViews = new HashMap<>();
 
-		initView();
+		init();
 	}
 
-	private void initView() {
+	private void init() {
+		context.addItemsListener(this);
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				reLayout();
 			}
 		});
-		reload();
-	}
-
-	public void reload() {
-		reContext();
-		reLayout();
-	}
-
-	public void reContext() {
-		if (context.wereReordered()) {
-			removeAll();
-			for (Item item : context.getItems()) {
-				add(itemViews.get(item));
-			}
-			return;
-		}
-
-		for (Integer index : context.getAddedItems()) {
-			Item item = context.get(index);
-			ItemView itemView = new ItemView(item);
-
-			itemViews.put(item, itemView);
-			add(itemView, "", index);
-		}
-
-		for (Integer index : context.getRemovedItems()) {
-			itemViews.remove(context.get(index));
-			remove(index);
-		}
-
-		context.refresh();
 	}
 
 	public void reLayout() {
@@ -113,7 +84,43 @@ public class ItemsView extends JPanel {
 
 	public void setContext(Items context) {
 		this.context = context;
-		reContext();
+		context.addItemsListener(this);
+
+		reLayout();
+	}
+
+	@Override
+	public void onItemAdded(Item item) {
+		ItemView itemView = new ItemView(item);
+		itemViews.put(item, itemView);
+		add(itemView);
+		revalidate();
+		repaint();
+	}
+
+	@Override
+	public void onItemRemoved(Item item) {
+		itemViews.remove(item);
+		revalidate();
+		repaint();
+	}
+
+	@Override
+	public void onItemsCleared() {
+		itemViews.clear();
+		removeAll();
+		revalidate();
+		repaint();
+	}
+
+	@Override
+	public void onReordered() {
+		removeAll();
+		for (Item item : context.getItems()) {
+			itemViews.get(item);
+		}
+		revalidate();
+		repaint();
 	}
 
 }

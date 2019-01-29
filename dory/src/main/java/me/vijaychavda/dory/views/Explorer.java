@@ -37,8 +37,7 @@ public class Explorer extends javax.swing.JFrame {
 			@Override
 			public void found(Path path) {
 				FileItem item = new FileItem(path);
-				itemsView.getContext().add(index++, item);
-				itemsView.reload();
+				itemsView.getContext().add(item);
 			}
 		};
 		try {
@@ -59,6 +58,7 @@ public class Explorer extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 500));
 
+        scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setViewportView(itemsView);
 
         getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
