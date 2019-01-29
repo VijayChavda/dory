@@ -1,8 +1,11 @@
 package me.vijaychavda.dory.utils;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,5 +34,15 @@ public class FileUtils {
 		} catch (IOException ex) {
 			return "file";
 		}
+	}
+
+	public static List<Path> getFileSystemRoots() {
+		ArrayList<Path> list = new ArrayList<>();
+
+		for (Path root : FileSystems.getDefault().getRootDirectories()) {
+			list.add(root);
+		}
+
+		return list;
 	}
 }

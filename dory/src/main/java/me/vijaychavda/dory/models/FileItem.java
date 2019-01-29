@@ -23,7 +23,10 @@ public class FileItem extends Item {
 	}
 
 	private void init() {
-		setText(path.getFileName().toString());
+		if (path.getFileName() != null)
+			setText(path.getFileName().toString());
+		else
+			setText("root");
 
 		String type = FileUtils.getType(path);
 		Image asset = ASSETS.getDefaultAsset(type);
