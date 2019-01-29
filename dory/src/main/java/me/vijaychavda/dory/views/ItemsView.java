@@ -1,6 +1,8 @@
 package me.vijaychavda.dory.views;
 
 import java.awt.Component;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import javax.swing.JPanel;
 import me.vijaychavda.dory.models.Item;
@@ -26,6 +28,12 @@ public class ItemsView extends JPanel {
 	}
 
 	private void initView() {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				reLayout();
+			}
+		});
 		reload();
 	}
 
