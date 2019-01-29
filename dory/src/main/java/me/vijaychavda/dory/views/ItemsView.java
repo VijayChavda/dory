@@ -20,6 +20,10 @@ public class ItemsView extends JPanel {
 	private Items context;
 	private final HashMap<Item, ItemView> itemViews;
 
+	public ItemsView() {
+		this(new Items());
+	}
+
 	public ItemsView(Items context) {
 		this.context = context;
 		itemViews = new HashMap<>();

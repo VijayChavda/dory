@@ -1,6 +1,5 @@
 package me.vijaychavda.dory.views;
 
-import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -9,7 +8,6 @@ import java.nio.file.Path;
 import java.util.logging.Level;
 import static me.vijaychavda.dory.Dory.LOGGER;
 import me.vijaychavda.dory.models.FileItem;
-import me.vijaychavda.dory.models.Items;
 import me.vijaychavda.dory.workers.Crawler;
 
 /**
@@ -18,13 +16,8 @@ import me.vijaychavda.dory.workers.Crawler;
  */
 public class Explorer extends javax.swing.JFrame {
 
-	private final ItemsView itemsView;
-
 	public Explorer() {
 		initComponents();
-
-		itemsView = new ItemsView(new Items());
-		this.add(itemsView, BorderLayout.CENTER);
 
 		addWindowListener(new WindowAdapter() {
 
@@ -60,12 +53,21 @@ public class Explorer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scrollPane = new javax.swing.JScrollPane();
+        itemsView = new me.vijaychavda.dory.views.ItemsView();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 500));
+
+        scrollPane.setViewportView(itemsView);
+
+        getContentPane().add(scrollPane, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private me.vijaychavda.dory.views.ItemsView itemsView;
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 	//</editor-fold>
 }
