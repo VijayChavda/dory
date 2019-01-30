@@ -11,6 +11,7 @@ public class Item {
 
 	private String text;
 	private Icon icon;
+	private boolean selected;
 
 	public String getText() {
 		return text;
@@ -26,6 +27,14 @@ public class Item {
 
 	public void setIcon(Icon icon) {
 		this.icon = icon;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	@Override
