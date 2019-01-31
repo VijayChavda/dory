@@ -19,17 +19,21 @@ import me.vijaychavda.dory.workers.Crawler;
  */
 public class Explorer extends javax.swing.JFrame {
 
-	private Path current;
+	private Path dir;
+	private final Items dirContent;
 
 	public Explorer() {
 		initComponents();
+
+		dir = FileUtils.getFileSystemRoots().get(0);
+		dirContent = new Items();
+		itemsView.setContext(dirContent);
 
 		addWindowListener(new WindowAdapter() {
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				current = FileUtils.getFileSystemRoots().get(0);
-				navigate(current);
+				navigate(dir);
 			}
 		});
 	}
@@ -41,15 +45,13 @@ public class Explorer extends javax.swing.JFrame {
 		setTitle(DORY + " - " + path.toString());
 		addressBar.setText(path.toString());
 
-		current = path;
-
-		Items items = itemsView.getContext();
-		items.clear();
+		dir = path;
+		dirContent.clear();
 
 		Crawler crawler = new Crawler(path, "glob", "*", 1) {
 			@Override
 			public void found(Path path) {
-				items.add(new FileItem(path));
+				dirContent.add(new FileItem(path));
 			}
 		};
 
@@ -126,7 +128,7 @@ public class Explorer extends javax.swing.JFrame {
     }//GEN-LAST:event_addressBarActionPerformed
 
     private void upBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upBtnMouseClicked
-		navigate(current.getParent());
+		navigate(dir.getParent());
     }//GEN-LAST:event_upBtnMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

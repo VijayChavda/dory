@@ -1,56 +1,34 @@
 package me.vijaychavda.dory.views;
 
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
 import me.vijaychavda.dory.models.Item;
+import me.vijaychavda.dory.models.Item.ItemListener;
+import static me.vijaychavda.dory.views.Reuseable.SB;
 
 /**
  *
  * @author Vijay
  */
-public class ItemView extends JLabel {
+public class ItemView extends JLabel implements ItemListener {
 
 	private Item context;
 
-	private static final Border FB = BorderFactory.createDashedBorder(Color.GRAY);
-
-	public ItemView(Item context) {
-		this.context = context;
-
-		initView();
+	public ItemView() {
+		this(null);
 	}
 
-	private void initView() {
+	public ItemView(Item item) {
+		initView(item);
+	}
+
+	private void initView(Item context) {
+		setContext(context);
+
 		setHorizontalTextPosition(JLabel.CENTER);
 		setVerticalTextPosition(JLabel.BOTTOM);
 
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
-
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if (!context.isSelected())
-					setBorder(FB);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				if (!context.isSelected())
-					setBorder(null);
-			}
-		});
-
-		reContext();
-	}
-
-	public void reContext() {
-		setText(context.getText());
-		setIcon(context.getIcon());
 	}
 
 	public Item getContext() {
@@ -59,7 +37,37 @@ public class ItemView extends JLabel {
 
 	public void setContext(Item context) {
 		this.context = context;
-		reContext();
+
+		if (context != null) {
+			context.addItemListener(this);
+			onTextChanged();
+			onIconChanged();
+			onSelectionChanged();
+		}
+	}
+
+	@Override
+	public void onTextChanged() {
+		if (context == null)
+			return;
+
+		setText(context.getText());
+	}
+
+	@Override
+	public void onIconChanged() {
+		if (context == null)
+			return;
+
+		setIcon(context.getIcon());
+	}
+
+	@Override
+	public void onSelectionChanged() {
+		if (context == null)
+			return;
+
+		setBorder(context.isSelected() ? SB : null);
 	}
 
 }
