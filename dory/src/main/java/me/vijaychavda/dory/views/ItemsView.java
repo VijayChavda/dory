@@ -69,8 +69,8 @@ public class ItemsView extends JPanel implements ItemsListener {
 				.alignY("top")
 				.gridGapX(horizontalGap + "::")
 				.gridGapY(verticalGap + "!"),
-				new AC().size(cellWidth + "").align("center").grow(),
-				new AC().size(cellHeight + "").align("bottom")
+				new AC().size(cellWidth + ":" + cellWidth).align("center").grow(),
+				new AC().size(cellHeight + ":" + cellHeight).align("bottom")
 			)
 		);
 
