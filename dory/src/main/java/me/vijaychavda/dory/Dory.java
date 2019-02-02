@@ -21,6 +21,8 @@ public class Dory {
 	public static final Settings SETTINGS;
 	public static final Storage STORAGE;
 
+	private static Explorer Explorer;
+
 	static {
 		try {
 			ASSETS = new Assets();
@@ -46,8 +48,13 @@ public class Dory {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
-			new Explorer().setVisible(true);
+			Explorer = new Explorer();
+			Explorer.setVisible(true);
 		});
+	}
+
+	public static Explorer getExplorer() {
+		return Explorer;
 	}
 
 }

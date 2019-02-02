@@ -177,7 +177,13 @@ public class ItemsView extends JPanel implements ItemsListener {
 		itemView.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				item.setSelected(!item.isSelected());
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					item.setSelected(!item.isSelected());
+
+					if (e.getClickCount() == 2) {
+						item.action();
+					}
+				}
 			}
 
 			@Override

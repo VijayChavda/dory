@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.MessageFormat;
 import javax.swing.ImageIcon;
+import me.vijaychavda.dory.Dory;
 import static me.vijaychavda.dory.Dory.ASSETS;
 import me.vijaychavda.dory.utils.FileUtils;
 
@@ -41,6 +42,13 @@ public class FileItem extends Item {
 			}
 		}
 		setIcon(new ImageIcon(asset));
+	}
+
+	@Override
+	public void action() {
+		if (Files.isDirectory(path)) {
+			Dory.getExplorer().navigate(path);
+		}
 	}
 
 	public Path getPath() {

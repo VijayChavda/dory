@@ -104,6 +104,10 @@ public class Item {
 	}
 	//</editor-fold>
 
+	public void action() {
+		//
+	}
+
 	@Override
 	public String toString() {
 		return MessageFormat.format("Item[text={0}, icon={1}]", text, icon);
