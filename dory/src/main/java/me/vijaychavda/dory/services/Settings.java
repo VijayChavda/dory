@@ -9,13 +9,21 @@ import java.awt.Color;
 public class Settings {
 
 	private String appDirPath;
-	private Color mouseDragSelectionColorBorder;
-	private Color mouseDragSelectionColorBackground;
+
+	private Color itemFocusBorderColor;
+	private Color itemSelectBorderColor;
+
+	private Color selectionRectBorderColor;
+	private Color selectionRectBackgroundColor;
 
 	public Settings() {
 		appDirPath = System.getProperty("user.home");
-		mouseDragSelectionColorBorder = Color.GRAY;
-		mouseDragSelectionColorBackground = new Color(100, 100, 100, 100);
+
+		itemFocusBorderColor = Color.GRAY;
+		itemSelectBorderColor = Color.GRAY;
+
+		selectionRectBorderColor = Color.GRAY;
+		selectionRectBackgroundColor = new Color(100, 100, 100, 100);
 	}
 
 	public String getAppDirPath() {
@@ -26,20 +34,36 @@ public class Settings {
 		this.appDirPath = appDirPath;
 	}
 
-	public Color getMouseDragSelectionColorBorder() {
-		return mouseDragSelectionColorBorder;
+	public Color getItemFocusBorderColor() {
+		return itemFocusBorderColor;
 	}
 
-	public void setMouseDragSelectionColorBorder(Color mouseDragSelectionColorBorder) {
-		this.mouseDragSelectionColorBorder = mouseDragSelectionColorBorder;
+	public void setItemFocusBorderColor(Color itemFocusBorderColor) {
+		this.itemFocusBorderColor = itemFocusBorderColor;
 	}
 
-	public Color getMouseDragSelectionColorBackground() {
-		return mouseDragSelectionColorBackground;
+	public Color getItemSelectBorderColor() {
+		return itemSelectBorderColor;
 	}
 
-	public void setMouseDragSelectionColorBackground(Color mouseDragSelectionColorBackground) {
-		this.mouseDragSelectionColorBackground = mouseDragSelectionColorBackground;
+	public void setItemSelectBorderColor(Color itemSelectBorderColor) {
+		this.itemSelectBorderColor = itemSelectBorderColor;
+	}
+
+	public Color getSelectionRectBorderColor() {
+		return selectionRectBorderColor;
+	}
+
+	public void setSelectionRectBorderColor(Color selectionRectBorderColor) {
+		this.selectionRectBorderColor = selectionRectBorderColor;
+	}
+
+	public Color getSelectionRectBackgroundColor() {
+		return selectionRectBackgroundColor;
+	}
+
+	public void setSelectionRectBackgroundColor(Color selectionRectBackgroundColor) {
+		this.selectionRectBackgroundColor = selectionRectBackgroundColor;
 	}
 
 }

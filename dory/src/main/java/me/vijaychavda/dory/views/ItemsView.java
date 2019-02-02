@@ -155,13 +155,13 @@ public class ItemsView extends JPanel implements ItemsListener {
 
 		Graphics2D gg = (Graphics2D) g;
 
-		gg.setColor(SETTINGS.getMouseDragSelectionColorBorder());
+		gg.setColor(SETTINGS.getSelectionRectBorderColor());
 		gg.drawRect(
 			selectionRect.x, selectionRect.y,
 			selectionRect.width, selectionRect.height
 		);
 
-		gg.setColor(SETTINGS.getMouseDragSelectionColorBackground());
+		gg.setColor(SETTINGS.getSelectionRectBackgroundColor());
 		gg.fillRect(
 			selectionRect.x, selectionRect.y,
 			selectionRect.width, selectionRect.height

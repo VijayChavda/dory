@@ -1,9 +1,8 @@
 package me.vijaychavda.dory.views;
 
-import static java.awt.Color.DARK_GRAY;
-import static java.awt.Color.GRAY;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import static me.vijaychavda.dory.Dory.SETTINGS;
 
 /**
  *
@@ -11,8 +10,8 @@ import javax.swing.border.Border;
  */
 public interface Reuseable {
 
-	Border FB = BorderFactory.createDashedBorder(GRAY);
+	Border FB = BorderFactory.createDashedBorder(SETTINGS.getItemFocusBorderColor());
 
-	Border SB = BorderFactory.createLineBorder(DARK_GRAY);
+	Border SB = BorderFactory.createLineBorder(SETTINGS.getItemSelectBorderColor());
 
 }
