@@ -31,7 +31,7 @@ public class ItemsView extends JPanel implements ItemsListener {
 	private final HashMap<Item, ItemView> itemViews;
 
 	private Point selectionRectStart;
-	private Point selectionRectEnd;
+	private Rectangle selectionRect;
 
 	public ItemsView() {
 		this(null);
@@ -53,20 +53,42 @@ public class ItemsView extends JPanel implements ItemsListener {
 		});
 		addMouseListener(new MouseAdapter() {
 			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (ItemsView.this.context == null)
+					return;
+
+				for (Item item : ItemsView.this.context.getItems()) {
+					item.setSelected(false);
+				}
+			}
+
+			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionRectStart = e.getPoint();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				selectionRectStart = selectionRectEnd = null;
+				selectionRectStart = null;
+				selectionRect = null;
 				repaint();
 			}
 		});
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				selectionRectEnd = e.getPoint();
+				Point selectionRectEnd = e.getPoint();
+				selectionRect = new Rectangle(
+					Math.min(selectionRectStart.x, selectionRectEnd.x),
+					Math.min(selectionRectStart.y, selectionRectEnd.y),
+					Math.abs(selectionRectStart.x - selectionRectEnd.x),
+					Math.abs(selectionRectStart.y - selectionRectEnd.y)
+				);
+				for (ItemView itemView : itemViews.values()) {
+					if (itemView.getBounds().intersects(selectionRect)) {
+						itemView.getContext().setSelected(true);
+					}
+				}
 				repaint();
 			}
 		});
@@ -128,16 +150,10 @@ public class ItemsView extends JPanel implements ItemsListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		if (selectionRectStart == null || selectionRectEnd == null)
+		if (selectionRect == null)
 			return;
 
 		Graphics2D gg = (Graphics2D) g;
-		Rectangle selectionRect = new Rectangle(
-			Math.min(selectionRectStart.x, selectionRectEnd.x),
-			Math.min(selectionRectStart.y, selectionRectEnd.y),
-			Math.abs(selectionRectStart.x - selectionRectEnd.x),
-			Math.abs(selectionRectStart.y - selectionRectEnd.y)
-		);
 
 		gg.setColor(SETTINGS.getMouseDragSelectionColorBorder());
 		gg.drawRect(
