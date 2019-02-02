@@ -104,7 +104,7 @@ public class Item {
 	}
 	//</editor-fold>
 
-	public void action() {
+	public void action() throws Exception {
 		//
 	}
 

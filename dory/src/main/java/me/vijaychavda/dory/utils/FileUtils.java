@@ -1,5 +1,6 @@
 package me.vijaychavda.dory.utils;
 
+import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -12,6 +13,13 @@ import java.util.List;
  * @author Vijay
  */
 public class FileUtils {
+
+	public static void openWithDefaultProgram(Path file) throws IOException {
+		if (Desktop.isDesktopSupported() == false)
+			throw new IOException("Desktop is not supported by your platform.");
+
+		Desktop.getDesktop().open(file.toFile());
+	}
 
 	public static String getExtension(Path file) {
 		String name = file.getFileName().toString();

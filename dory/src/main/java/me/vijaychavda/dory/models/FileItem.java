@@ -1,6 +1,7 @@
 package me.vijaychavda.dory.models;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.MessageFormat;
@@ -45,9 +46,17 @@ public class FileItem extends Item {
 	}
 
 	@Override
-	public void action() {
+	public void action() throws IOException, SecurityException {
+		if (!Files.isReadable(path))
+			throw new SecurityException("You do not have read permission on: " + path);
+
 		if (Files.isDirectory(path)) {
 			Dory.getExplorer().navigate(path);
+			return;
+		}
+
+		if (Files.isRegularFile(path)) {
+			FileUtils.openWithDefaultProgram(path);
 		}
 	}
 

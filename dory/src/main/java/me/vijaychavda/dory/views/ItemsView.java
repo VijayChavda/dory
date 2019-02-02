@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static me.vijaychavda.dory.Dory.SETTINGS;
 import me.vijaychavda.dory.models.Item;
@@ -181,7 +182,11 @@ public class ItemsView extends JPanel implements ItemsListener {
 					item.setSelected(!item.isSelected());
 
 					if (e.getClickCount() == 2) {
-						item.action();
+						try {
+							item.action();
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(ItemsView.this, ex.getMessage());
+						}
 					}
 				}
 			}
